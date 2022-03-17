@@ -1,0 +1,1 @@
+# class-covid-tracking-api
