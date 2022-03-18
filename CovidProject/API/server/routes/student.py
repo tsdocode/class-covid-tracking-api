@@ -27,15 +27,27 @@ async def add_student(request: CreateStudentReq, db: Session = Depends(get_db)):
     )
 
 @router.get("/")
-def get_by_id(id: int, db: Session = Depends(get_db)):
+async def get_by_id(id: int, db: Session = Depends(get_db)):
     return db.query(Student).filter(Student.mssv == id).first()
 
 
 @router.delete("/")
-def delete(id: int, db: Session = Depends(get_db)):
+async def delete(id: int, db: Session = Depends(get_db)):
     db.query(Student).filter(Student.mssv == id).delete()
     db.commit()
     return { "success": True }
+
+@router.get("/amount")
+async def get_number_of_student( db: Session = Depends(get_db)):
+    students = db.query(Student).filter().all()
+    db.commit()
+    return Response.ResponseModel(
+        code=200,
+        message="Add new student successfully",
+        data= {
+            "numberOfStudent" : len(students)
+        }
+    )
 
 @router.post("/update")
 def update(student: CreateStudentReq ,  db: Session = Depends(get_db)):
