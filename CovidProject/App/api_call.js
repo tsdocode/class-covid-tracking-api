@@ -2,24 +2,33 @@ host = "http://23.21.174.232/"
 
 
 async function postData(url = '', data = {}) {
-    // Default options are marked with *
-    console.log(data)
-    const response = await fetch(url, {
-      method: 'POST', // *GET, POST, PUT, DELETE, etc.
-      mode: 'no-cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    //   credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    return response.json(); // parses JSON response into native JavaScript objects
-  }
+    var url = "http://23.21.174.232/positive/add";
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", url);
+
+    xhr.setRequestHeader("accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+    xhr.setRequestHeader("mode", "cors");
+
+    
+
+    xhr.onreadystatechange = function () {
+       if (xhr.readyState === 4) {
+          console.log(xhr.status);
+          console.log(xhr.responseText);
+       }};
+    
+    var data = `{
+      "mssv": 19133001
+    }`;
+    
+    xhr.send(data);
+        
+}
 
 function set_content(id ,pos_case){
     $("#" + id).html(pos_case);
@@ -66,7 +75,7 @@ async function update_status() {
         endpoint = 'positive/negative'
     }
 
-    await postData(host + endpoint , {'mssv' : parseInt(mssv)})
+    await postData(host + endpoint , {"mssv" : parseInt(mssv)})
         .then(data => {
             console.log(data)
             reload()
