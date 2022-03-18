@@ -37,6 +37,20 @@ async def delete(id: int, db: Session = Depends(get_db)):
     db.commit()
     return { "success": True }
 
+@router.get("/all")
+async def get_all_student( db: Session = Depends(get_db)):
+    students = db.query(Student).filter().all()
+    mssv = [student.mssv for student in students]
+    db.commit()
+    return Response.ResponseModel(
+        code=200,
+        message="Add new student successfully",
+        data= {
+            "students" : mssv
+        }
+    )
+
+
 @router.get("/amount")
 async def get_number_of_student( db: Session = Depends(get_db)):
     students = db.query(Student).filter().all()
