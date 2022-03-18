@@ -13,6 +13,7 @@ router = APIRouter()
 
 @router.post("/add", response_description="Add new positive case", tags=["positive"])
 async def add_positive(request: AddPositiveReq, db: Session = Depends(get_db)):
+    print(request)
     mssv = request.mssv
     testDate = datetime.date.today()
 
