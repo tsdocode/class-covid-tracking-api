@@ -7,7 +7,7 @@ from server.routes.positive import router as PositiveRoutes
 
 
 
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()

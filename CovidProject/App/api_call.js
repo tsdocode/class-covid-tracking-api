@@ -7,12 +7,11 @@ async function postData(url = '', data = {}) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url);
 
-    xhr.setRequestHeader("accept", "application/json");
+    // xhr.setRequestHeader("accept", "application/json");
     xhr.setRequestHeader("Content-Type", "application/json");
+    // xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 
-    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-
-    xhr.setRequestHeader("mode", "cors");
+    // xhr.setRequestHeader("mode", "no-cors");
 
     
 
